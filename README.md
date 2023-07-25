@@ -45,7 +45,7 @@ If you are developing a production application, we recommend updating the config
       yarn dev
    ```
    - NPM:
-    ```sh
+   ```sh
       npm install
       npm run dev
    ```
