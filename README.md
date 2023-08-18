@@ -34,9 +34,9 @@ If you are developing a production application, we recommend updating the config
    * Architecture: MVC
 * Back-End:
    * Framework/Lib: NestJS + Ts
-   * DBMS: Mysql
+   * DBMS: Postgres
    * Database design: [TPC_CinemaDB](https://dbdiagram.io/d/641c55c2296d97641d8a4129)
-   * Architecture: RESTful
+   * Architecture: GraphQL
 > **Note:** The **Back-End** still in planning stage, more info will be updated later.
 ## Installation and start project:
    - Yarn:
