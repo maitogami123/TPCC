@@ -24,15 +24,36 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### Project Description
+This part is the backend of the [TPC Cinema App](https://github.com/maitogami123/TPCC)
 
-## Installation
+#### Project core packages
+[Docker](https://www.docker.com/) Create images and container for hosting DBMS
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[GraphQL](https://graphql.org/) for query and mutation
+[TypeORM](https://www.npmjs.com/package/@nestjs/typeorm) for Object Relational Mapping
+[Webpack](https://webpack.js.org/) bundle up and build project
+
+## First time installation
 
 ```bash
 $ yarn install
 ```
 
 ## Running the app
+
+Docker and docker compose are required for `hosting database` and `database administration`
+
+#### Installation Steps
+
+- Step 1: Spin up DBMS
+```bash 
+$ docker compose up --build
+```
+> **Note**: This command only need to run at the first time. Next time you only need to run it without the `--build` flag.
+> **Note**: You can use the `-d` flag to run it in the background
+
+- Step 2: After DB and DB administration is up, execute the following command
 
 ```bash
 # development

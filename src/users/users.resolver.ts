@@ -7,11 +7,12 @@ export class UsersResolver {
 
   @Query(() => String)
   sayHello(): string {
+    console.log('Man setup hot reload is hard af');
     return this.userService.sayHello();
   }
 
   @Query(() => String)
   sayBye(): string {
-    return this.userService.sayHello();
+    return this.userService.sayBye();
   }
 }

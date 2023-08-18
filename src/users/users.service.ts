@@ -5,4 +5,7 @@ export class UsersService {
   sayHello(): string {
     return 'Hello World!';
   }
+  sayBye(): string {
+    return 'This would be a blast';
+  }
 }
