@@ -51,9 +51,10 @@ Docker and docker compose are required for `hosting database` and `database admi
 $ docker compose up --build
 ```
 > **Note**: This command only need to run at the first time. Next time you only need to run it without the `--build` flag.
-> **Note**: You can use the `-d` flag to run it in the background
 
-- Step 2: After DB and DB administration is up, execute the following command
+> **Note**: You can use the `-d` flag to run command in the background.
+
+- Step 2: After DB and DB administration is up, execute the following command.
 
 ```bash
 # development

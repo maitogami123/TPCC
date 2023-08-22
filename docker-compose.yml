@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.9'
 
 services:
   db:
@@ -12,19 +12,20 @@ services:
     ports:
       - '5432:5432'
 
-  # app:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: TPCC_BE
-  #   environment:
-  #     - PORT=${PORT}
-  #   ports:
-  #     - '3000:3000'
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - ./src:/app/src
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: TPCC_BE
+    ports:
+      - 8080:3000
+      - 9229:9229
+    depends_on:
+      - db
+    volumes:
+      - /app/node_modues
+      - ./src:/app/src
+    command: yarn start:debug
 
   pgadmin:
     image: dpage/pgadmin4

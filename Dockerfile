@@ -10,9 +10,18 @@
 # COPY package*.json ./
 # COPY yarn.lock ./
 
-# RUN yarn install --immutable --immutable-cache --check-cache
+# RUN yarn
 
 # COPY . .
+
+# # Don't use root user
+# USER node
+
+# # Expose Port
+# EXPOSE 3000
+
+# # Run the app
+# CMD ["yarn", "start:dev"]
 
 # ###################
 # # BUILD FOR PRODUCTION
@@ -52,16 +61,25 @@
 
 # WORKDIR /app
 
-# COPY package*.json ./
+# COPY package*.json ./ 
 
-# RUN npm install
+# COPY yarn.lock ./
+
+# RUN yarn install
 
 # COPY . .
 
-# RUN npm run build
+# RUN yarn build
 
-# ENV PORT = 3000
+# CMD [ "yarn", "start:dev" ]
 
-# EXPOSE 3000
+FROM node:18
 
-# CMD [ "npm", "run", "start:dev" ]
+WORKDIR /app
+
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn install
+
+COPY . .

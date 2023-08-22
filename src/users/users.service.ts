@@ -6,6 +6,6 @@ export class UsersService {
     return 'Hello World!';
   }
   sayBye(): string {
-    return 'This would be a blast';
+    return 'This WORK!!!!!';
   }
 }

@@ -1,41 +1,25 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Role } from 'src/roles/entity/role.entity';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { User } from 'src/users/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'Users' })
+@Entity({ name: 'Roles' })
 @ObjectType()
-export class User {
+export class Role {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number;
 
   @Column({ unique: true })
   @Field()
-  username: string;
-
-  @Column()
-  @Field()
-  hashed_password: string;
-
-  @Column({ unique: true })
-  @Field()
-  email: string;
-
-  @Column({ unique: true })
-  @Field()
-  phone_number: string;
-
-  @Column({ nullable: true })
-  @Field()
-  hashed_rt: string;
+  roleName: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -57,6 +41,6 @@ export class User {
   })
   deleted_at: Date;
 
-  @ManyToOne((type) => Role, (role) => role.id)
-  role: Role;
+  @OneToMany((type) => User, (user) => user.role)
+  users: User[];
 }
