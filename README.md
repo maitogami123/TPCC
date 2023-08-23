@@ -42,43 +42,19 @@ $ yarn install
 
 ## Running the app
 
-Docker and docker compose are required for `hosting database` and `database administration`
+Docker and docker compose are required for `DBMS, development and also debugging application`
 
-#### Installation Steps
-
-- Step 1: Spin up DBMS
 ```bash 
 $ docker compose up --build
 ```
-> **Note**: This command only need to run at the first time. Next time you only need to run it without the `--build` flag.
+> **Note**: `--build` flag only need at the first time run. Next time only need to run `docker compose up`
 
 > **Note**: You can use the `-d` flag to run command in the background.
 
-- Step 2: After DB and DB administration is up, execute the following command.
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
+## DBMS
+In this project we use `PgAdmin4` for database administration
+You can access `PgAdmin4` after you started docker through the default port `5500`
+With the credential inside docker-compose.yml
 
 ## Support
 

@@ -2,7 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: Int!
+  username: String!
+  hashed_password: String!
+  email: String!
+  phone_number: String!
+  hashed_rt: String!
+}
+
 type Query {
   sayHello: String!
   sayBye: String!
+}
+
+type Mutation {
+  createUser(NewUserInput: NewUserInputDto!): User!
+}
+
+input NewUserInputDto {
+  username: String!
+  password: String!
+  confirmPassword: String!
+  email: String!
+  phoneNumber: String!
 }

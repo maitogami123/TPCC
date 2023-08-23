@@ -8,6 +8,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { join } from 'path';
 import { RolesModule } from './roles/roles.module';
+import { SeatsModule } from './seats/seats.module';
+import { MoviesModule } from './movies/movies.module';
+import { TheatersModule } from './theaters/theaters.module';
+import { ShowTimeModule } from './show-time/show-time.module';
+import { SnackModule } from './snack/snack.module';
+import { OrderModule } from './order/order.module';
+import { SeatOrderModule } from './seat-order/seat-order.module';
+import { SnackOrderModule } from './snack-order/snack-order.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +36,15 @@ import { RolesModule } from './roles/roles.module';
     }),
     UsersModule,
     RolesModule,
+    SeatsModule,
+    MoviesModule,
+    TheatersModule,
+    ShowTimeModule,
+    SnackModule,
+    OrderModule,
+    SeatOrderModule,
+    SnackOrderModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

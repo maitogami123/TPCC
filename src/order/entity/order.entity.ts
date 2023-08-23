@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Order } from 'src/order/entity/order.entity';
-import { Role } from 'src/roles/entity/role.entity';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Seat } from 'src/seats/entity/seat.entity';
+import { ShowTime } from 'src/show-time/entity/showTime.entity';
+import { User } from 'src/users/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,36 +9,25 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'Users' })
+@Entity({ name: 'Orders' })
 @ObjectType()
-export class User {
+export class Order {
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
+  @Field((type) => Int)
   id: number;
-
-  @Column({ unique: true })
-  @Field()
-  username: string;
 
   @Column()
   @Field()
-  hashed_password: string;
+  total: number;
 
-  @Column({ unique: true })
+  @Column({ default: false })
   @Field()
-  email: string;
-
-  @Column({ unique: true })
-  @Field()
-  phone_number: string;
-
-  @Column({ nullable: true })
-  @Field()
-  hashed_rt: string;
+  is_cancelled: boolean;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -59,9 +49,9 @@ export class User {
   })
   deleted_at: Date;
 
-  @ManyToOne((type) => Role, (role) => role.id)
-  role: Role;
+  @ManyToOne((type) => User, (user) => user.orders)
+  users: User;
 
-  @OneToMany((type) => Order, (order) => order.users)
-  orders: Order[];
+  @OneToOne((type) => ShowTime, (showTime) => showTime.id)
+  showTime: ShowTime;
 }

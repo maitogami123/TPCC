@@ -1,5 +1,7 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UsersService } from './users.service';
+import { User } from './entity/user.entity';
+import { NewUserInputDto } from './dto';
 
 @Resolver()
 export class UsersResolver {
@@ -7,12 +9,18 @@ export class UsersResolver {
 
   @Query(() => String)
   sayHello(): string {
-    console.log('Man setup hot reload is hard af');
     return this.userService.sayHello();
   }
 
   @Query(() => String)
   sayBye(): string {
     return this.userService.sayBye();
+  }
+
+  @Mutation((returns) => User)
+  createUser(
+    @Args('NewUserInput') newUserInput: NewUserInputDto,
+  ): Promise<User> {
+    return;
   }
 }

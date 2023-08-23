@@ -1,43 +1,35 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Order } from 'src/order/entity/order.entity';
-import { Role } from 'src/roles/entity/role.entity';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'Users' })
+@Entity({ name: 'Snacks' })
 @ObjectType()
-export class User {
+export class Snack {
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
+  @Field((type) => Int)
   id: number;
-
-  @Column({ unique: true })
-  @Field()
-  username: string;
 
   @Column()
   @Field()
-  hashed_password: string;
-
-  @Column({ unique: true })
-  @Field()
-  email: string;
-
-  @Column({ unique: true })
-  @Field()
-  phone_number: string;
+  name: string;
 
   @Column({ nullable: true })
   @Field()
-  hashed_rt: string;
+  description: string;
+
+  @Column()
+  @Field()
+  price: number;
+
+  @Column({ default: 0 })
+  @Field()
+  discount: number;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -58,10 +50,4 @@ export class User {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   deleted_at: Date;
-
-  @ManyToOne((type) => Role, (role) => role.id)
-  role: Role;
-
-  @OneToMany((type) => Order, (order) => order.users)
-  orders: Order[];
 }
