@@ -42,7 +42,7 @@ export class Movie {
 
   @DeleteDateColumn({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   deleted_at: Date;

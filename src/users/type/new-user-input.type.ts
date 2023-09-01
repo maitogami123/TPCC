@@ -1,4 +1,4 @@
-export interface NewUserInputDto {
+export interface NewUserInput {
   username: string;
   password: string;
   email: string;

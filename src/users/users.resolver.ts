@@ -7,20 +7,20 @@ import { NewUserInputDto } from './dto';
 export class UsersResolver {
   constructor(private userService: UsersService) {}
 
-  @Query(() => String)
-  sayHello(): string {
-    return this.userService.sayHello();
-  }
-
-  @Query(() => String)
-  sayBye(): string {
-    return this.userService.sayBye();
+  @Query(() => User)
+  getUserByUsername(@Args('username') username: string): Promise<User> {
+    return this.userService.getUserByUsername(username);
   }
 
   @Mutation((returns) => User)
   createUser(
     @Args('NewUserInput') newUserInput: NewUserInputDto,
   ): Promise<User> {
-    return;
+    return this.userService.createUser({
+      username: newUserInput.username,
+      email: newUserInput.email,
+      password: newUserInput.password,
+      phoneNumber: newUserInput.phoneNumber,
+    });
   }
 }

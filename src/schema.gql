@@ -11,13 +11,20 @@ type User {
   hashed_rt: String!
 }
 
+type LoginResponse {
+  access_token: String!
+  refresh_token: String!
+}
+
 type Query {
-  sayHello: String!
-  sayBye: String!
+  getUserByUsername(username: String!): User!
+  getUserProfile: User!
 }
 
 type Mutation {
   createUser(NewUserInput: NewUserInputDto!): User!
+  signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
+  refreshSession: LoginResponse!
 }
 
 input NewUserInputDto {
@@ -26,4 +33,9 @@ input NewUserInputDto {
   confirmPassword: String!
   email: String!
   phoneNumber: String!
+}
+
+input SignInAuthDto {
+  username: String!
+  password: String!
 }

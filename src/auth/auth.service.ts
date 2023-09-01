@@ -1,4 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { Tokens } from './type';
+import { GetUserAttr } from 'src/common/decorators';
 
 @Injectable()
-export class AuthService {}
+export class AuthService {
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
+
+  async signIn(username: string, password: string): Promise<Tokens> {
+    const user = await this.usersService.getUserByUsername(username);
+    const { hashed_password, ...result } = user;
+    const isMatched = bcrypt.compareSync(password, hashed_password);
+    if (!isMatched) {
+      throw new UnauthorizedException('Invalid username or password');
+    }
+
+    const tokens = await this.getTokens(user.username, user.email);
+    this.usersService.updateRtHash(user.username, tokens.refresh_token);
+
+    return tokens;
+  }
+
+  async refresh(username: string, refreshToken: string) {
+    const user = await this.usersService.getUserByUsername(username);
+    const { hashed_rt, ...result } = user;
+    const isMatched = bcrypt.compareSync(refreshToken, hashed_rt);
+
+    if (!isMatched) {
+      throw new ForbiddenException('Access denined!');
+    }
+
+    const tokens = await this.getTokens(user.username, user.email);
+    await this.usersService.updateRtHash(user.username, tokens.refresh_token);
+    return tokens;
+  }
+
+  async getTokens(username: string, email: string) {
+    const [at, rt] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: username,
+          email,
+        },
+        {
+          secret: process.env.AT_SECRET,
+          expiresIn: 60,
+        },
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: username,
+          email,
+        },
+        {
+          secret: process.env.RT_SECRET,
+          expiresIn: 60 * 60 * 24 * 7,
+        },
+      ),
+    ]);
+
+    return {
+      access_token: at,
+      refresh_token: rt,
+    };
+  }
+}

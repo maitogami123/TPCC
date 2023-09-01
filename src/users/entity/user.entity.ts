@@ -37,7 +37,7 @@ export class User {
 
   @Column({ nullable: true })
   @Field()
-  hashed_rt: string;
+  hashed_rt?: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -54,7 +54,7 @@ export class User {
 
   @DeleteDateColumn({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   deleted_at: Date;
