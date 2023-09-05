@@ -25,6 +25,7 @@ type Mutation {
   createUser(NewUserInput: NewUserInputDto!): User!
   signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
   refreshSession: LoginResponse!
+  logout: Boolean!
 }
 
 input NewUserInputDto {

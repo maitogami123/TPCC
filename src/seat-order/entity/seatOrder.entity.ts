@@ -1,13 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Order } from 'src/order/entity/order.entity';
-import { Seat } from 'src/seats/entity/seat.entity';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'SeatOrders' })
 @ObjectType()
@@ -25,8 +18,5 @@ export class SeatOrder {
   discount: number;
 
   @ManyToOne(() => Order, (order) => order.id)
-  order_id: Order;
-
-  @OneToOne(() => Seat, (seat) => seat.id)
-  seat_id: Seat;
+  order: Order;
 }

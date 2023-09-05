@@ -2,11 +2,14 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entity/user.entity';
 import { NewUserInputDto } from './dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/common/guards';
 
 @Resolver()
 export class UsersResolver {
   constructor(private userService: UsersService) {}
 
+  @UseGuards(AuthGuard())
   @Query(() => User)
   getUserByUsername(@Args('username') username: string): Promise<User> {
     return this.userService.getUserByUsername(username);

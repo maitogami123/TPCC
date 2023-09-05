@@ -1,14 +1,12 @@
 import {
   ForbiddenException,
   Injectable,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Tokens } from './type';
-import { GetUserAttr } from 'src/common/decorators';
 
 @Injectable()
 export class AuthService {
@@ -34,6 +32,11 @@ export class AuthService {
   async refresh(username: string, refreshToken: string) {
     const user = await this.usersService.getUserByUsername(username);
     const { hashed_rt, ...result } = user;
+
+    if (!user || !hashed_rt) {
+      throw new ForbiddenException('Access denined!');
+    }
+
     const isMatched = bcrypt.compareSync(refreshToken, hashed_rt);
 
     if (!isMatched) {
@@ -45,6 +48,10 @@ export class AuthService {
     return tokens;
   }
 
+  async logout(username: string): Promise<boolean> {
+    return this.usersService.logout(username);
+  }
+
   async getTokens(username: string, email: string) {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
@@ -54,7 +61,7 @@ export class AuthService {
         },
         {
           secret: process.env.AT_SECRET,
-          expiresIn: 60,
+          expiresIn: 60 * 60 * 24,
         },
       ),
       this.jwtService.signAsync(

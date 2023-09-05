@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -50,6 +51,7 @@ export class Seat {
   @ManyToOne((type) => Theater, (theater) => theater.id)
   theater: Theater;
 
-  @OneToOne((type) => SeatOrder, (seatOrder) => seatOrder.id)
-  seat: SeatOrder;
+  @OneToOne(() => SeatOrder)
+  @JoinColumn()
+  seat_order: SeatOrder;
 }

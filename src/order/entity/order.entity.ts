@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Seat } from 'src/seats/entity/seat.entity';
+import { SeatOrder } from 'src/seat-order/entity/seatOrder.entity';
 import { ShowTime } from 'src/show-time/entity/showTime.entity';
+import { SnackOrder } from 'src/snack-order/entity/snackOrder.entity';
 import { User } from 'src/users/entity/user.entity';
 import {
   Column,
@@ -54,4 +55,10 @@ export class Order {
 
   @OneToOne((type) => ShowTime, (showTime) => showTime.id)
   showTime: ShowTime;
+
+  @OneToMany((type) => SnackOrder, (snackOrder) => snackOrder.id)
+  snacks: SnackOrder[];
+
+  @OneToMany((type) => SeatOrder, (seatOrder) => seatOrder.id)
+  seats: SeatOrder[];
 }

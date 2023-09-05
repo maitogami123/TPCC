@@ -19,10 +19,10 @@ export const AuthGuard = (refresh = false): Type<CanActivate> => {
       const Authorization = request.headers.authorization;
       const token = Authorization?.split(' ')[1];
       const secret = !refresh ? process.env.AT_SECRET : process.env.RT_SECRET;
-      debugger;
       if (!token) {
         throw new UnauthorizedException();
       }
+
       try {
         const payload = await this.jwtService.verifyAsync(token, {
           secret: secret,

@@ -37,4 +37,10 @@ export class AuthResolver {
   getUserProfile(@GetUserAttr('sub') username: string): Promise<User> {
     return this.usersService.getUserByUsername(username);
   }
+
+  @UseGuards(AuthGuard())
+  @Mutation(() => Boolean)
+  async logout(@GetUserAttr('sub') username: string): Promise<boolean> {
+    return this.authService.logout(username);
+  }
 }

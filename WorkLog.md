@@ -10,11 +10,16 @@
 # ...
 - sick
 
-# 29/8/2023
+# 1/9/2023
+- Refactored auth guard
+- implemented refresh route
 
+# 2/9/2023
+- implemented logout route
+
+# 5/9/2023
+- add cinema table
+- finished database relations
 
 #### Todo:
-- remove current auth guard
-- add 2 guards (atguard, rtguard) to handle access and refresh explicitly
-- implement refesh route
-- implement logout route
+- dockerize FE

@@ -1,21 +1,16 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Cinema } from 'src/cinemas/entity/cinema.entity';
-import { Seat } from 'src/seats/entity/seat.entity';
-import { ShowTime } from 'src/show-time/entity/showTime.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'Theaters' })
+@Entity({ name: 'Cinemas' })
 @ObjectType()
-export class Theater {
+export class Cinema {
   @PrimaryGeneratedColumn()
   @Field((type) => Int)
   id: number;
@@ -23,6 +18,10 @@ export class Theater {
   @Column()
   @Field()
   name: string;
+
+  @Column()
+  @Field()
+  address: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -43,13 +42,4 @@ export class Theater {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   deleted_at: Date;
-
-  @OneToMany((type) => Seat, (seat) => seat.id)
-  seats: Seat[];
-
-  @OneToMany((type) => ShowTime, (showTime) => showTime.id)
-  showTimes: ShowTime[];
-
-  @ManyToOne((type) => Cinema, (cinema) => cinema.id)
-  cinemas: Cinema[];
 }

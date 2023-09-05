@@ -40,6 +40,18 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  async logout(username: string): Promise<boolean> {
+    await this.userRepository.update(
+      {
+        username,
+      },
+      {
+        hashed_rt: null,
+      },
+    );
+    return true;
+  }
+
   private hashData(data: string) {
     return bcrypt.hash(data, 10);
   }

@@ -17,6 +17,8 @@ import { OrderModule } from './order/order.module';
 import { SeatOrderModule } from './seat-order/seat-order.module';
 import { SnackOrderModule } from './snack-order/snack-order.module';
 import { AuthModule } from './auth/auth.module';
+import { CinemasModule } from './cinemas/cinemas.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { AuthModule } from './auth/auth.module';
     SeatOrderModule,
     SnackOrderModule,
     AuthModule,
+    CinemasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
