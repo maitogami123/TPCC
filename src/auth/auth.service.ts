@@ -22,8 +22,11 @@ export class AuthService {
     if (!isMatched) {
       throw new UnauthorizedException('Invalid username or password');
     }
-
-    const tokens = await this.getTokens(user.username, user.email);
+    const tokens = await this.getTokens(
+      user.username,
+      user.email,
+      user.role.name,
+    );
     this.usersService.updateRtHash(user.username, tokens.refresh_token);
 
     return tokens;
@@ -43,7 +46,11 @@ export class AuthService {
       throw new ForbiddenException('Access denined!');
     }
 
-    const tokens = await this.getTokens(user.username, user.email);
+    const tokens = await this.getTokens(
+      user.username,
+      user.email,
+      user.role.name,
+    );
     await this.usersService.updateRtHash(user.username, tokens.refresh_token);
     return tokens;
   }
@@ -52,16 +59,17 @@ export class AuthService {
     return this.usersService.logout(username);
   }
 
-  async getTokens(username: string, email: string) {
+  async getTokens(username: string, email: string, roleName: string) {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: username,
           email,
+          roleName,
         },
         {
           secret: process.env.AT_SECRET,
-          expiresIn: 60 * 60 * 24,
+          expiresIn: 60 * 60 * 5,
         },
       ),
       this.jwtService.signAsync(

@@ -22,12 +22,14 @@ export class ShowTime {
   @Field()
   show_date: Date;
 
+  @Field()
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   created_at: Date;
 
+  @Field()
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
@@ -35,6 +37,7 @@ export class ShowTime {
   })
   updated_at: Date;
 
+  @Field()
   @DeleteDateColumn({
     type: 'timestamp',
     default: null,

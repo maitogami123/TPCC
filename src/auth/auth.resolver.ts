@@ -5,7 +5,7 @@ import { User } from 'src/users/entity/user.entity';
 import { UseGuards } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { GetUserAttr } from 'src/common/decorators';
-import { AuthGuard } from 'src/common/guards';
+import { AuthGuard, RoleGuard } from 'src/common/guards';
 
 @Resolver()
 export class AuthResolver {
@@ -32,7 +32,7 @@ export class AuthResolver {
   }
 
   // TODO: return a valid data
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
   @Query(() => User)
   getUserProfile(@GetUserAttr('sub') username: string): Promise<User> {
     return this.usersService.getUserByUsername(username);

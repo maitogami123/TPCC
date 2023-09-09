@@ -39,12 +39,14 @@ export class User {
   @Field()
   hashed_rt?: string;
 
+  @Field()
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   created_at: Date;
 
+  @Field()
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
@@ -52,6 +54,7 @@ export class User {
   })
   updated_at: Date;
 
+  @Field()
   @DeleteDateColumn({
     type: 'timestamp',
     default: null,
@@ -59,7 +62,8 @@ export class User {
   })
   deleted_at: Date;
 
-  @ManyToOne((type) => Role, (role) => role.id)
+  @Field()
+  @ManyToOne((type) => Role)
   role: Role;
 
   @OneToMany((type) => Order, (order) => order.users)

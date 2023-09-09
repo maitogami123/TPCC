@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,12 +18,17 @@ export class Role {
 
   @Column({ unique: true })
   @Field()
-  roleName: string;
+  name: string;
+
+  @Column({ nullable: true })
+  @Field()
+  description: string;
 
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
+  @Field()
   created_at: Date;
 
   @UpdateDateColumn({
@@ -32,6 +36,7 @@ export class Role {
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field()
   updated_at: Date;
 
   @DeleteDateColumn({
@@ -39,8 +44,9 @@ export class Role {
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field()
   deleted_at: Date;
 
-  @OneToMany((type) => User, (user) => user.role)
-  users: User[];
+  // @OneToMany((type) => User, (user) => user.role)
+  // users: User[];
 }
