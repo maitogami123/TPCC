@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Role {
+  id: Int!
+  name: String!
+  description: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: Int!
+  username: String!
+  hashed_password: String!
+  email: String!
+  phone_number: String!
+  hashed_rt: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime!
+  role: Role!
+}
+
+type LoginResponse {
+  access_token: String!
+  refresh_token: String!
+}
+
+type Query {
+  getUserByUsername(username: String!): User!
+  getRole(roleId: Float!): Role!
+  getUserProfile: User!
+}
+
+type Mutation {
+  createUser(NewUserInput: NewUserInputDto!): User!
+  updateUser(UpdateUserInput: UpdateUserInputDto!): User!
+  createRole(RoleInput: RoleInput!): Role!
+  updateRole(roleId: Float!, updateRoleInput: RoleInput!): Role!
+  deleteRole(roleId: Float!): Boolean!
+  signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
+  refreshSession: LoginResponse!
+  logout: Boolean!
+}
+
+input NewUserInputDto {
+  username: String!
+  password: String!
+  confirmPassword: String!
+  email: String!
+  phoneNumber: String!
+}
+
+input UpdateUserInputDto {
+  password: String!
+  confirmPassword: String!
+  email: String!
+  phoneNumber: String!
+  roleName: String!
+}
+
+input RoleInput {
+  name: String!
+  description: String!
+}
+
+input SignInAuthDto {
+  username: String!
+  password: String!
+}

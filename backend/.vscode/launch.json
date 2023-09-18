@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug: nestjs-graphq",
+      "address": "localhost",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "remoteRoot": "/app/src",
+      "localRoot": "${workspaceFolder}",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    }
+  ]
+}

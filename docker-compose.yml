@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres
+    volumes:
+      - ./backend/pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: TPCC_BE
+    ports:
+      - 8080:3000
+      - 9229:9229
+    depends_on:
+      - db
+    volumes:
+      - /backend/app/node_modules
+      - ./backend/src:/app/src
+    command: yarn start:debug
+  web:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: TPCC_FE
+    ports: 
+      - 3000:3000
+    depends_on:
+      - api
+    volumes:
+      - /frontend/app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    command: yarn start
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
