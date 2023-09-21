@@ -6,10 +6,11 @@ import {
 import { User } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { NewUserInput } from './type';
+import { NewUserInput, UserUpdateObject } from './type';
 import * as bcrypt from 'bcrypt';
-import { UpdateUserInput } from './type/update-user-input.type';
+import { UpdateUserInput } from './type';
 import { Role } from 'src/roles/entity/role.entity';
+import { hashData } from 'src/common/utils';
 
 @Injectable()
 export class UsersService {
@@ -36,7 +37,10 @@ export class UsersService {
   }
 
   async createUser(newUserInput: NewUserInput): Promise<User> {
-    const hashedPassword = await bcrypt.hash(newUserInput.password, 10);
+    const hashedPassword = await bcrypt.hash(
+      newUserInput.password,
+      process.env.HASH_SALT,
+    );
     const user = new User();
     user.email = newUserInput.email;
     user.username = newUserInput.username;
@@ -45,22 +49,59 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  // NOTE: Ternary operator?
-  // NOTE: Class transformer ? but can it transform an interface to a class ?
-  // HACK: update user info even if the field left blank!
+  // [ ]: Re-name variables
   async updateUser(updateUserData: UpdateUserInput): Promise<User> {
-    const hashedPassword = await bcrypt.hash(updateUserData.password, 10);
-    const user = await this.userRepository.findOneBy({
-      username: updateUserData.username,
+    const updateObject: UserUpdateObject = await this.handleBuildUpdateObject(
+      updateUserData,
+    );
+    // [x]: refactor this update query, using js object loop
+    // NOTE: If the key is not undefined -> add that to query update query
+    await this.userRepository.update(
+      {
+        username: updateUserData.username,
+      },
+      updateObject,
+    );
+    return this.userRepository.findOne({
+      relations: ['role'],
+      where: { username: updateUserData.username },
     });
-    user.email = updateUserData.email;
-    user.phone_number = updateUserData.phoneNumber;
-    user.hashed_password = hashedPassword;
-    const role = await this.roleRepository.findOneBy({
-      name: updateUserData.roleName,
-    });
-    user.role = role;
-    return this.userRepository.save(user);
+  }
+
+  async handleBuildUpdateObject(
+    updateUserData: UpdateUserInput,
+  ): Promise<UserUpdateObject> {
+    const userUpdateObject: UserUpdateObject = {};
+    // COMMENT: By this way, I can check the input one more time before make changes to the  curent object
+    for (const propertyKey of Object.keys(updateUserData)) {
+      if (updateUserData[propertyKey])
+        switch (propertyKey) {
+          case 'password':
+            userUpdateObject.hashed_password = await hashData(
+              updateUserData[propertyKey],
+            );
+            break;
+          case 'roleName':
+            try {
+              const role = await this.roleRepository.findOneByOrFail({
+                name: updateUserData.roleName,
+              });
+              userUpdateObject.role = role;
+            } catch {
+              throw new NotFoundException(
+                `Role ${updateUserData[propertyKey]} not found!`,
+              );
+            }
+            break;
+          case 'email':
+            userUpdateObject.email = updateUserData.email;
+            break;
+          case 'phoneNumber':
+            userUpdateObject.phone_number = updateUserData.phoneNumber;
+            break;
+        }
+    }
+    return userUpdateObject;
   }
 
   async logout(username: string): Promise<boolean> {
@@ -75,12 +116,8 @@ export class UsersService {
     return true;
   }
 
-  private hashData(data: string) {
-    return bcrypt.hash(data, 10);
-  }
-
   async updateRtHash(_username: string, rt: string) {
-    const hash = await this.hashData(rt);
+    const hash = await hashData(rt);
     await this.userRepository.update(
       {
         username: _username,

@@ -61,4 +61,15 @@ export class RolesService {
     }
     return true;
   }
+
+  async isValidRole(roleName: string): Promise<boolean> {
+    try {
+      const role = await this.roleRepository.findOneByOrFail({
+        name: roleName,
+      });
+      return !!role;
+    } catch {
+      throw new NotFoundException('Role not found');
+    }
+  }
 }

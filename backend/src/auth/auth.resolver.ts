@@ -31,7 +31,7 @@ export class AuthResolver {
     return this.authService.refresh(username, refreshToken);
   }
 
-  // TODO: return a valid data
+  // [x]: return a valid data
   @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
   @Query(() => User)
   getUserProfile(@GetUserAttr('sub') username: string): Promise<User> {

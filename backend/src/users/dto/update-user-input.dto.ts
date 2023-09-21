@@ -24,6 +24,5 @@ export class UpdateUserInputDto {
 
   @Field()
   @IsAlpha()
-  // TODO: add asynchronus valiation to check the rolename is valid or not
   roleName: string;
 }
