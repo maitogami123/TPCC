@@ -20,10 +20,6 @@ export class Seat {
   @Field((type) => Int)
   id: number;
 
-  @Column()
-  @Field()
-  name: string;
-
   @Column({ default: true })
   @Field()
   is_available: boolean;
@@ -43,12 +39,12 @@ export class Seat {
   })
   updated_at: Date;
 
-  @Field()
   @DeleteDateColumn({
     type: 'timestamp',
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field({ nullable: true })
   deleted_at: Date;
 
   @ManyToOne((type) => Theater, (theater) => theater.id)

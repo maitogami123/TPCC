@@ -14,7 +14,7 @@ export class UsersResolver {
     private roleService: RolesService,
   ) {}
 
-  // TODO: Delete this later!
+  // [ ]: Delete this later!
   @UseGuards(AuthGuard())
   @Query(() => User)
   getUserByUsername(@Args('username') username: string): Promise<User> {
@@ -35,7 +35,7 @@ export class UsersResolver {
 
   // [x]: password confirmation before update user's infomation
   // [x]: add asynchronus valiation to check the rolename is valid or not
-  // [ ]: update required password and confirm password
+  // [x]: update required password and confirm password
   @UseGuards(AuthGuard())
   @Mutation((returns) => User)
   updateUser(

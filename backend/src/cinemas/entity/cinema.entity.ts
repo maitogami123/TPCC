@@ -15,6 +15,10 @@ export class Cinema {
   @Field((type) => Int)
   id: number;
 
+  @Column({ unique: true })
+  @Field()
+  code_name: string;
+
   @Column()
   @Field()
   name: string;
@@ -27,6 +31,7 @@ export class Cinema {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
+  @Field()
   created_at: Date;
 
   @UpdateDateColumn({
@@ -34,6 +39,7 @@ export class Cinema {
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field()
   updated_at: Date;
 
   @DeleteDateColumn({
@@ -41,5 +47,6 @@ export class Cinema {
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field({ nullable: true })
   deleted_at: Date;
 }

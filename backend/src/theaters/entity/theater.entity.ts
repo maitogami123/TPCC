@@ -39,12 +39,12 @@ export class Theater {
   })
   updated_at: Date;
 
-  @Field()
   @DeleteDateColumn({
     type: 'timestamp',
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field({ nullable: true })
   deleted_at: Date;
 
   @OneToMany((type) => Seat, (seat) => seat.id)
@@ -54,5 +54,6 @@ export class Theater {
   showTimes: ShowTime[];
 
   @ManyToOne((type) => Cinema, (cinema) => cinema.id)
-  cinemas: Cinema[];
+  @Field()
+  cinema: Cinema;
 }

@@ -44,7 +44,7 @@ export class Role {
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  @Field()
+  @Field({ nullable: true })
   deleted_at: Date;
 
   // @OneToMany((type) => User, (user) => user.role)

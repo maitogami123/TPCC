@@ -2,19 +2,38 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Role {
+type Cinema {
   id: Int!
+  code_name: String!
   name: String!
-  description: String!
+  address: String!
   created_at: DateTime!
   updated_at: DateTime!
-  deleted_at: DateTime!
+  deleted_at: DateTime
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Theater {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime
+  cinema: Cinema!
+}
+
+type Role {
+  id: Int!
+  name: String!
+  description: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime
+}
 
 type User {
   id: Int!
@@ -25,8 +44,8 @@ type User {
   hashed_rt: String!
   created_at: DateTime!
   updated_at: DateTime!
-  deleted_at: DateTime!
-  role: Role!
+  deleted_at: DateTime
+  role: Role
 }
 
 type LoginResponse {
@@ -37,7 +56,10 @@ type LoginResponse {
 type Query {
   getUserByUsername(username: String!): User!
   getRole(roleId: Float!): Role!
+  getTheaterById(id: Float!): Theater!
   getUserProfile: User!
+  getCinemaById(id: Float!): Cinema!
+  getCinemaByCodeName(codeName: String!): Cinema!
 }
 
 type Mutation {
@@ -46,9 +68,11 @@ type Mutation {
   createRole(RoleInput: RoleInput!): Role!
   updateRole(roleId: Float!, updateRoleInput: RoleInput!): Role!
   deleteRole(roleId: Float!): Boolean!
+  createTheater(newTheaterData: NewTheaterDto!): Theater!
   signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
   refreshSession: LoginResponse!
   logout: Boolean!
+  createCinema(cinemaInput: NewCinemaDto!): Cinema!
 }
 
 input NewUserInputDto {
@@ -72,7 +96,18 @@ input RoleInput {
   description: String!
 }
 
+input NewTheaterDto {
+  name: String!
+  cinemaCodeName: String!
+}
+
 input SignInAuthDto {
   username: String!
   password: String!
+}
+
+input NewCinemaDto {
+  codeName: String!
+  name: String!
+  address: String!
 }

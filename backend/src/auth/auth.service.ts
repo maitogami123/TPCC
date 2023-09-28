@@ -25,7 +25,7 @@ export class AuthService {
     const tokens = await this.getTokens(
       user.username,
       user.email,
-      user.role.name,
+      user.role?.name,
     );
     this.usersService.updateRtHash(user.username, tokens.refresh_token);
 

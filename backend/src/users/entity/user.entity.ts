@@ -54,15 +54,15 @@ export class User {
   })
   updated_at: Date;
 
-  @Field()
   @DeleteDateColumn({
     type: 'timestamp',
     default: null,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
+  @Field({ nullable: true })
   deleted_at: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @ManyToOne((type) => Role)
   role: Role;
 
