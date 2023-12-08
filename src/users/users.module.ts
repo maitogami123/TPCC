@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { Role } from 'src/roles/entity/role.entity';
+import { RolesService } from 'src/roles/roles.service';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { Role } from 'src/roles/entity/role.entity';
     TypeOrmModule.forFeature([Role]),
     JwtModule.register({}),
   ],
-  providers: [UsersService, UsersResolver],
+  providers: [UsersService, RolesService, UsersResolver],
   exports: [UsersService],
 })
 export class UsersModule {}

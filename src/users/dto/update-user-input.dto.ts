@@ -4,26 +4,29 @@ import { Match } from 'src/common/decorators';
 
 @InputType()
 export class UpdateUserInputDto {
+  @ValidateIf((target) => target.password !== undefined)
   @Length(5)
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
+  @ValidateIf((target) => target.confirmPassword !== undefined)
   @Length(5)
   @Match('password')
-  @Field()
+  @Field({ nullable: true })
   confirmPassword: string;
 
-  @ValidateIf((target) => target.email !== '')
+  @ValidateIf((target) => target.email !== undefined)
   @IsEmail()
-  @Field()
+  @Field({ nullable: true })
   email: string;
 
+  @ValidateIf((target) => target.email !== undefined)
   @Length(10, 10)
-  @Field()
+  @Field({ nullable: true })
   phoneNumber: string;
 
-  @Field()
+  @ValidateIf((target) => target.email !== undefined)
   @IsAlpha()
-  // TODO: add asynchronus valiation to check the rolename is valid or not
+  @Field({ nullable: true })
   roleName: string;
 }

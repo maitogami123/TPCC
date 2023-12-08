@@ -60,11 +60,11 @@ input NewUserInputDto {
 }
 
 input UpdateUserInputDto {
-  password: String!
-  confirmPassword: String!
-  email: String!
-  phoneNumber: String!
-  roleName: String!
+  password: String
+  confirmPassword: String
+  email: String
+  phoneNumber: String
+  roleName: String
 }
 
 input RoleInput {

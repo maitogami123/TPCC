@@ -1,5 +1,7 @@
 import {
   ConflictException,
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -60,5 +62,16 @@ export class RolesService {
       throw new ConflictException();
     }
     return true;
+  }
+
+  async isValidRole(roleName: string): Promise<boolean> {
+    try {
+      const role = await this.roleRepository.findOneByOrFail({
+        name: roleName,
+      });
+      return !!role;
+    } catch {
+      throw new HttpException('Role not found', HttpStatus.NOT_FOUND);
+    }
   }
 }
