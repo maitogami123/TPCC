@@ -5,15 +5,13 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class SeatsService {
-    constructor(
-        @InjectRepository(Seat) private seatsRepository: Repository<Seat>
-    ) {}
+  constructor(
+    @InjectRepository(Seat) private seatsRepository: Repository<Seat>,
+  ) {}
 
+  // BUG: When render seats, query for cinema then get all the seats and render it by index, id is not indexes relevant.
 
-    // NOTE: When render seats, query for cinema then get all the seats and render it by index, id is not indexes relevant.
+  // [ ]: Create seats by rows x column as a base then disable unwanted seats
 
-    // [ ]: Create seats by rows x column as a base then disable unwanted seats
-    
-    // [ ]: Change seat to VIP seat by select and active that attr or select multiple and active them at the same time
-
+  // [ ]: Change seat to VIP seat by select and active that attr or select multiple and active them at the same time
 }

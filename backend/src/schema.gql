@@ -17,13 +17,35 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Theater {
+type Seat {
   id: Int!
-  name: String!
+  type: String!
   created_at: DateTime!
   updated_at: DateTime!
   deleted_at: DateTime
+}
+
+type Theater {
+  id: Int!
+  name: String!
+  rows: Float!
+  columns: Float!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime
+  seats: [Seat!]!
   cinema: Cinema!
+}
+
+type Snack {
+  id: Int!
+  name: String!
+  description: String!
+  price: Float!
+  discount: Float!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime!
 }
 
 type Role {
@@ -69,6 +91,7 @@ type Mutation {
   updateRole(roleId: Float!, updateRoleInput: RoleInput!): Role!
   deleteRole(roleId: Float!): Boolean!
   createTheater(newTheaterData: NewTheaterDto!): Theater!
+  createSnack(newSnackData: NewSnackDto!): Snack!
   signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
   refreshSession: LoginResponse!
   logout: Boolean!
@@ -84,11 +107,11 @@ input NewUserInputDto {
 }
 
 input UpdateUserInputDto {
-  password: String!
-  confirmPassword: String!
-  email: String!
-  phoneNumber: String!
-  roleName: String!
+  password: String
+  confirmPassword: String
+  email: String
+  phoneNumber: String
+  roleName: String
 }
 
 input RoleInput {
@@ -98,7 +121,16 @@ input RoleInput {
 
 input NewTheaterDto {
   name: String!
+  rows: Float!
+  columns: Float!
   cinemaCodeName: String!
+}
+
+input NewSnackDto {
+  name: String!
+  description: String!
+  price: Float!
+  discount: Float
 }
 
 input SignInAuthDto {

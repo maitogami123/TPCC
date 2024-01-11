@@ -25,20 +25,20 @@ services:
       - /backend/app/node_modules
       - ./backend/src:/app/src
     command: yarn start:debug
-  web:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: TPCC_FE
-    ports: 
-      - 3000:3000
-    depends_on:
-      - api
-    volumes:
-      - /frontend/app/node_modules
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-    command: yarn start
+  # web:
+  #   build: 
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: TPCC_FE
+  #   ports: 
+  #     - 3000:3000
+  #   depends_on:
+  #     - api
+  #   volumes:
+  #     - /frontend/app/node_modules
+  #     - ./frontend/src:/app/src
+  #     - ./frontend/public:/app/public
+  #   command: yarn start
   pgadmin:
     image: dpage/pgadmin4
     restart: always

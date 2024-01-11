@@ -24,6 +24,14 @@ export class Theater {
   @Field()
   name: string;
 
+  @Column()
+  @Field()
+  rows: number;
+
+  @Column()
+  @Field()
+  columns: number;
+
   @Field()
   @CreateDateColumn({
     type: 'timestamp',
@@ -48,6 +56,7 @@ export class Theater {
   deleted_at: Date;
 
   @OneToMany((type) => Seat, (seat) => seat.id)
+  @Field((type) => [Seat])
   seats: Seat[];
 
   @OneToMany((type) => ShowTime, (showTime) => showTime.id)

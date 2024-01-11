@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { SeatType } from 'src/common/enums';
 import { SeatOrder } from 'src/seat-order/entity/seatOrder.entity';
 import { Theater } from 'src/theaters/entity/theater.entity';
 import {
@@ -20,9 +21,9 @@ export class Seat {
   @Field((type) => Int)
   id: number;
 
-  @Column({ default: true })
+  @Column({ default: SeatType.NORMAL })
   @Field()
-  is_available: boolean;
+  type: SeatType;
 
   @Field()
   @CreateDateColumn({

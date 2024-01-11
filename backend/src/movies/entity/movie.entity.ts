@@ -1,11 +1,9 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { ShowTime } from 'src/show-time/entity/showTime.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,9 +23,13 @@ export class Movie {
   @Field()
   director: string;
 
-  @Column({ default: 0 })
+  @Column()
   @Field()
-  discount: number;
+  duration: number;
+
+  @Column()
+  @Field({ defaultValue: 0 })
+  view_count: number;
 
   @Field()
   @CreateDateColumn({

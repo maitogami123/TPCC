@@ -1,5 +1,4 @@
-
 export interface NewTheater {
-    name: string,
-    cinemaCodeName: string
+  name: string;
+  cinemaCodeName: string;
 }

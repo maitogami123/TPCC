@@ -6,9 +6,7 @@ import { SeatsResolver } from './seats.resolver';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Seat]),
-  JwtModule.register({})
-  ],
+  imports: [TypeOrmModule.forFeature([Seat]), JwtModule.register({})],
   providers: [SeatsService, SeatsResolver],
 })
-export class SeatsModule { }
+export class SeatsModule {}

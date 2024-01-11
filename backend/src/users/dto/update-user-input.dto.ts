@@ -1,28 +1,28 @@
-import { IsAlpha, IsEmail, Length, ValidateIf } from 'class-validator';
 import { Field, InputType } from '@nestjs/graphql';
+import { IsAlpha, IsEmail, Length, ValidateIf } from 'class-validator';
 import { Match } from 'src/common/decorators';
 
 @InputType()
 export class UpdateUserInputDto {
   @Length(5)
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
   @Length(5)
   @Match('password')
-  @Field()
+  @Field({ nullable: true })
   confirmPassword: string;
 
   @ValidateIf((target) => target.email !== '')
   @IsEmail()
-  @Field()
+  @Field({ nullable: true })
   email: string;
 
   @Length(10, 10)
-  @Field()
+  @Field({ nullable: true })
   phoneNumber: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsAlpha()
   roleName: string;
 }

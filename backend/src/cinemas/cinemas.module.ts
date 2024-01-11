@@ -6,10 +6,7 @@ import { Cinema } from './entity/cinema.entity';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Cinema]),
-    JwtModule.register({}),
-  ],
-  providers: [CinemasResolver, CinemasService]
+  imports: [TypeOrmModule.forFeature([Cinema]), JwtModule.register({})],
+  providers: [CinemasResolver, CinemasService],
 })
 export class CinemasModule {}

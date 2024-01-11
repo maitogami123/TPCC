@@ -1,1 +1,1 @@
-export * from './new-theater.dto'
+export * from './new-theater.dto';

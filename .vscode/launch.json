@@ -4,12 +4,12 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Debug: nestjs-graphq",
+      "name": "Debug: nestjs-graphql",
       "address": "localhost",
       "port": 9229,
       "sourceMaps": true,
       "restart": true,
-      "remoteRoot": "/app/src",
+      "remoteRoot": "/app",
       "localRoot": "${workspaceFolder}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
