@@ -2,71 +2,51 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Movie {
+  title: String!
+  director: String!
+  duration: Float!
+  view_count: Float!
+}
+
 type Cinema {
-  id: Int!
   code_name: String!
   name: String!
   address: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Seat {
-  id: Int!
   type: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime
+  row: Float!
+  column: Float!
 }
 
 type Theater {
-  id: Int!
   name: String!
   rows: Float!
   columns: Float!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime
   seats: [Seat!]!
   cinema: Cinema!
 }
 
 type Snack {
-  id: Int!
   name: String!
   description: String!
   price: Float!
   discount: Float!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime!
 }
 
 type Role {
-  id: Int!
   name: String!
   description: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime
 }
 
 type User {
-  id: Int!
   username: String!
   hashed_password: String!
   email: String!
   phone_number: String!
   hashed_rt: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime
   role: Role
 }
 
@@ -76,7 +56,6 @@ type LoginResponse {
 }
 
 type Query {
-  getUserByUsername(username: String!): User!
   getRole(roleId: Float!): Role!
   getTheaterById(id: Float!): Theater!
   getUserProfile: User!
@@ -90,6 +69,7 @@ type Mutation {
   createRole(RoleInput: RoleInput!): Role!
   updateRole(roleId: Float!, updateRoleInput: RoleInput!): Role!
   deleteRole(roleId: Float!): Boolean!
+  createMovie(movieInput: NewMovieDto!, image: Upload!): Movie!
   createTheater(newTheaterData: NewTheaterDto!): Theater!
   createSnack(newSnackData: NewSnackDto!): Snack!
   signInLocal(SignInAuthDto: SignInAuthDto!): LoginResponse!
@@ -118,6 +98,14 @@ input RoleInput {
   name: String!
   description: String!
 }
+
+input NewMovieDto {
+  title: String!
+  director: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input NewTheaterDto {
   name: String!

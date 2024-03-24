@@ -69,3 +69,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Debuging
+
+You need to build the project (to create dist folder which contain nest source maps) before starting to debug the application.

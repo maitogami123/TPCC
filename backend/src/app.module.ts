@@ -18,12 +18,17 @@ import { SeatOrderModule } from './seat-order/seat-order.module';
 import { SnackOrderModule } from './snack-order/snack-order.module';
 import { AuthModule } from './auth/auth.module';
 import { CinemasModule } from './cinemas/cinemas.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: 'src/files',
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      csrfPrevention: false,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

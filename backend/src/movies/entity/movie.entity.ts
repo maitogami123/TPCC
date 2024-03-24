@@ -1,20 +1,10 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseEntity } from 'src/common/entity/base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'Movies' })
 @ObjectType()
-export class Movie {
-  @PrimaryGeneratedColumn()
-  @Field((type) => Int)
-  id: number;
-
+export class Movie extends BaseEntity {
   @Column()
   @Field()
   title: string;
@@ -30,27 +20,4 @@ export class Movie {
   @Column()
   @Field({ defaultValue: 0 })
   view_count: number;
-
-  @Field()
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  created_at: Date;
-
-  @Field()
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  updated_at: Date;
-
-  @DeleteDateColumn({
-    type: 'timestamp',
-    default: null,
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  @Field({ nullable: true })
-  deleted_at: Date;
 }

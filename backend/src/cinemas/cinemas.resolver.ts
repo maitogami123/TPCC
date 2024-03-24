@@ -7,28 +7,26 @@ import { NewCinemaDto } from './dto';
 
 @Resolver()
 export class CinemasResolver {
-    constructor(
-        private cinemaService: CinemasService
-    ) {}
+  constructor(private cinemaService: CinemasService) {}
 
-    @UseGuards(AuthGuard())
-    @Query(() => Cinema)
-    getCinemaById(@Args('id') id:number): Promise<Cinema> {
-        return this.cinemaService.getCinemaById(id);
-    }
+  @UseGuards(AuthGuard())
+  @Query(() => Cinema)
+  getCinemaById(@Args('id') id: number): Promise<Cinema> {
+    return this.cinemaService.getCinemaById(id);
+  }
 
-    @UseGuards(AuthGuard())
-    @Query(() => Cinema)
-    getCinemaByCodeName(@Args('codeName') codeName: string): Promise<Cinema> {
-        return this.cinemaService.getCinemaByCodeName(codeName);
-    }
+  @UseGuards(AuthGuard())
+  @Query(() => Cinema)
+  getCinemaByCodeName(@Args('codeName') codeName: string): Promise<Cinema> {
+    return this.cinemaService.getCinemaByCodeName(codeName);
+  }
 
-    @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
-    @Mutation(() => Cinema)
-    createCinema(@Args('cinemaInput') cinemaInput: NewCinemaDto) {
-        return this.cinemaService.createCinema(cinemaInput)
-    }
+  @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
+  @Mutation(() => Cinema)
+  createCinema(@Args('cinemaInput') cinemaInput: NewCinemaDto) {
+    return this.cinemaService.createCinema(cinemaInput);
+  }
 
-    // [ ]: update cinema
-    // [ ]: delete cinema
+  // [ ]: update cinema
+  // [ ]: delete cinema
 }

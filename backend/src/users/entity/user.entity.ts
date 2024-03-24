@@ -1,24 +1,12 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseEntity } from 'src/common/entity/base.entity';
 import { Order } from 'src/order/entity/order.entity';
 import { Role } from 'src/roles/entity/role.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({ name: 'Users' })
 @ObjectType()
-export class User {
-  @PrimaryGeneratedColumn()
-  @Field(() => Int)
-  id: number;
-
+export class User extends BaseEntity {
   @Column({ unique: true })
   @Field()
   username: string;
@@ -38,29 +26,6 @@ export class User {
   @Column({ nullable: true })
   @Field()
   hashed_rt?: string;
-
-  @Field()
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  created_at: Date;
-
-  @Field()
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  updated_at: Date;
-
-  @DeleteDateColumn({
-    type: 'timestamp',
-    default: null,
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  @Field({ nullable: true })
-  deleted_at: Date;
 
   @Field({ nullable: true })
   @ManyToOne((type) => Role)

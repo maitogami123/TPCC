@@ -17,6 +17,6 @@ export class SeatOrder {
   @Field()
   discount: number;
 
-  @ManyToOne(() => Order, (order) => order.id)
+  @ManyToOne(() => Order, (order) => order.seats)
   order: Order;
 }

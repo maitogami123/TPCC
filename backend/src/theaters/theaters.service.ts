@@ -17,7 +17,7 @@ export class TheatersService {
   async getTheaterById(id: number): Promise<Theater> {
     try {
       const theater = this.theaterRepository.findOneOrFail({
-        relations: ['cinema'],
+        relations: ['cinema', 'seats'],
         where: {
           id: id,
         },
@@ -39,7 +39,7 @@ export class TheatersService {
         code_name: newTheaterData.cinemaCodeName,
       });
     } catch {
-      throw new NotFoundException('Cinama with provided code name not found');
+      throw new NotFoundException('Cinaema with provided code name not found');
     }
     const createdTheater = await this.theaterRepository.save(newTheater);
 

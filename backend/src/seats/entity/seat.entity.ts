@@ -1,54 +1,26 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseEntity } from 'src/common/entity/base.entity';
 import { SeatType } from 'src/common/enums';
 import { SeatOrder } from 'src/seat-order/entity/seatOrder.entity';
 import { Theater } from 'src/theaters/entity/theater.entity';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity({ name: 'Seats' })
 @ObjectType()
-export class Seat {
-  @PrimaryGeneratedColumn()
-  @Field((type) => Int)
-  id: number;
-
+export class Seat extends BaseEntity {
   @Column({ default: SeatType.NORMAL })
   @Field()
   type: SeatType;
 
+  @Column()
   @Field()
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-  })
-  created_at: Date;
+  row: number;
 
+  @Column()
   @Field()
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  updated_at: Date;
+  column: number;
 
-  @DeleteDateColumn({
-    type: 'timestamp',
-    default: null,
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
-  @Field({ nullable: true })
-  deleted_at: Date;
-
-  @ManyToOne((type) => Theater, (theater) => theater.id)
+  @ManyToOne((type) => Theater, (theater) => theater.seats)
   theater: Theater;
 
   @OneToOne(() => SeatOrder)

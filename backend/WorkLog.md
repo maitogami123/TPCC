@@ -1,3 +1,12 @@
+# TODO
+- Scan QR code to active ticket
+- Payment through QR
+- Comment section
+- Movie rating
+- Socket for something? (realtime seats placement?)
+- Transation in database
+
+
 # 24/8/2023
 - implemented sign up user
 - implemented remote debugger
@@ -21,5 +30,8 @@
 - add cinema table
 - finished database relations
 
-#### Todo:
-- dockerize FE
+# 14/1/2024
+- reformat entities. Now entities with (id, create/update/delete-dates) are now inherit it from the BaseEntity
+reduce code per entity and make it clearer to read
+- will fix entity relations as developing the project
+

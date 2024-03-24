@@ -14,13 +14,6 @@ export class UsersResolver {
     private roleService: RolesService,
   ) {}
 
-  // [ ]: Delete this later!
-  @UseGuards(AuthGuard())
-  @Query(() => User)
-  getUserByUsername(@Args('username') username: string): Promise<User> {
-    return this.userService.getUserByUsername(username);
-  }
-
   @Mutation((returns) => User)
   createUser(
     @Args('NewUserInput') newUserInput: NewUserInputDto,
