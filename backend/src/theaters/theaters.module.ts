@@ -4,8 +4,8 @@ import { Theater } from './entity/theater.entity';
 import { TheatersService } from './theaters.service';
 import { TheatersResolver } from './theaters.resolver';
 import { JwtModule } from '@nestjs/jwt';
-import { Cinema } from 'src/cinemas/entity/cinema.entity';
-import { Seat } from 'src/seats/entity/seat.entity';
+import { Cinema } from '../cinemas/entity/cinema.entity';
+import { Seat } from '../seats/entity/seat.entity';
 
 @Module({
   imports: [

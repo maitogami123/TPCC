@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NewUserInput, UserUpdateObject } from './type';
 import { UpdateUserInput } from './type';
-import { Role } from 'src/roles/entity/role.entity';
-import { hashData } from 'src/common/utils';
+import { Role } from '../roles/entity/role.entity';
+import { hashData } from '../common/utils';
 
 @Injectable()
 export class UsersService {

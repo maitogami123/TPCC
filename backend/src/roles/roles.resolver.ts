@@ -3,7 +3,7 @@ import { RolesService } from './roles.service';
 import { Role } from './entity/role.entity';
 import { RoleInput } from './dto';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/common/guards';
+import { AuthGuard } from '../common/guards';
 
 @Resolver()
 export class RolesResolver {

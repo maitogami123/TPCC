@@ -8,11 +8,9 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 
-import * as multer from 'multer';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from './common/utils';
-import { FileUpload, Upload } from 'graphql-upload-ts';
 
 @Controller()
 export class AppController {

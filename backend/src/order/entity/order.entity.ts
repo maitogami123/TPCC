@@ -1,9 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from 'src/common/entity/base.entity';
-import { SeatOrder } from 'src/seat-order/entity/seatOrder.entity';
-import { ShowTime } from 'src/show-time/entity/showTime.entity';
-import { SnackOrder } from 'src/snack-order/entity/snackOrder.entity';
-import { User } from 'src/users/entity/user.entity';
+import { BaseEntity } from '../../common/entity/base.entity';
+import { SeatOrder } from '../../seat-order/entity/seatOrder.entity';
+import { ShowTime } from '../../show-time/entity/showTime.entity';
+import { SnackOrder } from '../../snack-order/entity/snackOrder.entity';
+import { User } from '../../users/entity/user.entity';
 import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 
 @Entity({ name: 'Orders' })

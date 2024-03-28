@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { AuthGuard, RoleGuard } from 'src/common/guards';
+import { AuthGuard, RoleGuard } from '../common/guards';
 import { Movie } from './entity/movie.entity';
 import { NewMovieDto } from './dto';
 import { join } from 'path';

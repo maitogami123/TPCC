@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cinema } from 'src/cinemas/entity/cinema.entity';
+import { Cinema } from '../cinemas/entity/cinema.entity';
 import { Repository } from 'typeorm';
 import { Theater } from './entity/theater.entity';
-import { Seat } from 'src/seats/entity/seat.entity';
+import { Seat } from '../seats/entity/seat.entity';
 import { NewTheaterDto } from './dto';
 
 @Injectable()

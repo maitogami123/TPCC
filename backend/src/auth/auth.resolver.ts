@@ -1,11 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { LoginResponse, SignInAuthDto } from './dto';
 import { AuthService } from './auth.service';
-import { User } from 'src/users/entity/user.entity';
+import { User } from '../users/entity/user.entity';
 import { UseGuards } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
-import { GetUserAttr } from 'src/common/decorators';
-import { AuthGuard, RoleGuard } from 'src/common/guards';
+import { UsersService } from '../users/users.service';
+import { GetUserAttr } from '../common/decorators';
+import { AuthGuard, RoleGuard } from '../common/guards';
 
 @Resolver()
 export class AuthResolver {

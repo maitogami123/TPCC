@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Order } from 'src/order/entity/order.entity';
-import { Snack } from 'src/snack/entity/snack.entity';
+import { Order } from '../../order/entity/order.entity';
+import { Snack } from '../../snack/entity/snack.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'SnackOrders' })

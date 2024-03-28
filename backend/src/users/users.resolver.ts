@@ -3,9 +3,9 @@ import { UsersService } from './users.service';
 import { User } from './entity/user.entity';
 import { NewUserInputDto, UpdateUserInputDto } from './dto';
 import { UnprocessableEntityException, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/common/guards';
-import { GetUserAttr } from 'src/common/decorators';
-import { RolesService } from 'src/roles/roles.service';
+import { AuthGuard } from '../common/guards';
+import { GetUserAttr } from '../common/decorators';
+import { RolesService } from '../roles/roles.service';
 
 @Resolver()
 export class UsersResolver {
@@ -16,7 +16,7 @@ export class UsersResolver {
 
   @Mutation((returns) => User)
   createUser(
-    @Args('NewUserInput') newUserInput: NewUserInputDto,
+    @Args('newUserInput') newUserInput: NewUserInputDto,
   ): Promise<User> {
     return this.userService.createUser({
       username: newUserInput.username,

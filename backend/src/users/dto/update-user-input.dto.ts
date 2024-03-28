@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsAlpha, IsEmail, Length, ValidateIf } from 'class-validator';
-import { Match } from 'src/common/decorators';
+import { Match } from '../../common/decorators';
 
 @InputType()
 export class UpdateUserInputDto {

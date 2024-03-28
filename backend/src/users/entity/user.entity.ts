@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from 'src/common/entity/base.entity';
-import { Order } from 'src/order/entity/order.entity';
-import { Role } from 'src/roles/entity/role.entity';
+import { BaseEntity } from '../../common/entity/base.entity';
+import { Order } from '../../order/entity/order.entity';
+import { Role } from '../../roles/entity/role.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({ name: 'Users' })

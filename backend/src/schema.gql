@@ -64,7 +64,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(NewUserInput: NewUserInputDto!): User!
+  createUser(newUserInput: NewUserInputDto!): User!
   updateUser(UpdateUserInput: UpdateUserInputDto!): User!
   createRole(RoleInput: RoleInput!): Role!
   updateRole(roleId: Float!, updateRoleInput: RoleInput!): Role!

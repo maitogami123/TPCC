@@ -1,6 +1,6 @@
 import { IsAlphanumeric, IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { Field, InputType } from '@nestjs/graphql';
-import { Match } from 'src/common/decorators';
+import { Match } from '../../common/decorators';
 
 @InputType()
 export class NewUserInputDto {

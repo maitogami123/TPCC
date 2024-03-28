@@ -1,4 +1,4 @@
-import { Role } from 'src/roles/entity/role.entity';
+import { Role } from '../../roles/entity/role.entity';
 
 export type UserUpdateObject = {
   hashed_password?: string;

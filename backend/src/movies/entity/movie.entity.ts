@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from 'src/common/entity/base.entity';
+import { BaseEntity } from '../../common/entity/base.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'Movies' })

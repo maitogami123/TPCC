@@ -3,7 +3,7 @@ import { TheatersService } from './theaters.service';
 import { NewTheaterDto } from './dto';
 import { Theater } from './entity/theater.entity';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard, RoleGuard } from 'src/common/guards';
+import { AuthGuard, RoleGuard } from '../common/guards';
 
 @Resolver()
 export class TheatersResolver {

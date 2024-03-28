@@ -1,7 +1,7 @@
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { CinemasService } from './cinemas.service';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard, RoleGuard } from 'src/common/guards';
+import { AuthGuard, RoleGuard } from '../common/guards';
 import { Cinema } from './entity/cinema.entity';
 import { NewCinemaDto } from './dto';
 
