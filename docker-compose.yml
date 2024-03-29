@@ -6,7 +6,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: dev
+      target: test
     container_name: TPCC_BE
     ports:
       - 8080:3000
