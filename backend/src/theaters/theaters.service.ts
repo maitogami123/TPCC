@@ -39,15 +39,19 @@ export class TheatersService {
         code_name: newTheaterData.cinemaCodeName,
       });
     } catch {
-      throw new NotFoundException('Cinaema with provided code name not found');
+      throw new NotFoundException('Cinema with provided code name not found');
     }
     const createdTheater = await this.theaterRepository.save(newTheater);
 
     const seats = [];
-    for (let i = 0; i < newTheaterData.rows * newTheaterData.columns; i++) {
-      const newSeat = new Seat();
-      newSeat.theater = createdTheater;
-      seats.push(newSeat);
+    for (let i = 0; i < newTheaterData.rows; i++) {
+      for (let j = 0; j < newTheaterData.rows; j++) {
+        const newSeat = new Seat();
+        newSeat.theater = createdTheater;
+        newSeat.row = i;
+        newSeat.column = j;
+        seats.push(newSeat);
+      }
     }
 
     await this.seatRepository.insert(seats);

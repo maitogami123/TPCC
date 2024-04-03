@@ -13,7 +13,7 @@ services:
       - 9229:9229
     volumes:
       - /backend/app/node_modules
-      - ./backend/src:/src
+      - ./backend/src:/app/src
     networks:
       - default
       - database-nw
