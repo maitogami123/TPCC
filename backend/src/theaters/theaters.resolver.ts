@@ -7,11 +7,11 @@ import { AuthGuard, RoleGuard } from '../common/guards';
 
 @Resolver()
 export class TheatersResolver {
-  constructor(private theaterService: TheatersService) {}
+  constructor(private theaterServices: TheatersService) {}
 
   @Query(() => Theater)
   getTheaterById(@Args('id') id: number): Promise<Theater> {
-    return this.theaterService.getTheaterById(id);
+    return this.theaterServices.getTheaterById(id);
   }
 
   @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
@@ -19,6 +19,6 @@ export class TheatersResolver {
   createTheater(
     @Args('newTheaterData') newTheaterData: NewTheaterDto,
   ): Promise<Theater> {
-    return this.theaterService.createTheater(newTheaterData);
+    return this.theaterServices.createTheater(newTheaterData);
   }
 }

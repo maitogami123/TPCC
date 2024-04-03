@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 @InputType()
 export class NewMovieDto {
@@ -10,4 +10,9 @@ export class NewMovieDto {
   @Field()
   @IsNotEmpty()
   director: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsNumber()
+  duration: number;
 }

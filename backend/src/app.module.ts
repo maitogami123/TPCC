@@ -37,8 +37,8 @@ import { MulterModule } from '@nestjs/platform-express';
       username: 'postgres',
       password: 'postgres',
       database: 'tpcc',
-      // entities: ['dist/**/*.entity{.ts,.js}'],
-      entities: ['src/**/*.entity{.ts,.js}'], //use this when testing
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      // entities: ['/src/**/*.entity{.ts,.js}'], //use this when testing
       synchronize: true,
     }),
     UsersModule,
