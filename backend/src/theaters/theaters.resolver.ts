@@ -4,6 +4,7 @@ import { NewTheaterDto } from './dto';
 import { Theater } from './entity/theater.entity';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard, RoleGuard } from '../common/guards';
+import { Role } from 'src/common/enums';
 
 @Resolver()
 export class TheatersResolver {
@@ -14,7 +15,7 @@ export class TheatersResolver {
     return this.theaterServices.getTheaterById(id);
   }
 
-  @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
+  @UseGuards(AuthGuard(), RoleGuard(Role.ADMIN))
   @Mutation(() => Theater)
   createTheater(
     @Args('newTheaterData') newTheaterData: NewTheaterDto,

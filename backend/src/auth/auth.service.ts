@@ -7,6 +7,7 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Tokens } from './type';
+import { Role } from 'src/common/enums';
 
 @Injectable()
 export class AuthService {
@@ -22,11 +23,7 @@ export class AuthService {
     if (!isMatched) {
       throw new UnauthorizedException('Invalid username or password');
     }
-    const tokens = await this.getTokens(
-      user.username,
-      user.email,
-      user.role?.name,
-    );
+    const tokens = await this.getTokens(user.username, user.email, user.role);
     this.usersService.updateRtHash(user.username, tokens.refresh_token);
 
     return tokens;
@@ -46,11 +43,7 @@ export class AuthService {
       throw new ForbiddenException('Access denined!');
     }
 
-    const tokens = await this.getTokens(
-      user.username,
-      user.email,
-      user.role.name,
-    );
+    const tokens = await this.getTokens(user.username, user.email, user.role);
     await this.usersService.updateRtHash(user.username, tokens.refresh_token);
     return tokens;
   }
@@ -59,13 +52,13 @@ export class AuthService {
     return this.usersService.logout(username);
   }
 
-  async getTokens(username: string, email: string, roleName: string) {
+  async getTokens(username: string, email: string, role: string) {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: username,
           email,
-          roleName,
+          role,
         },
         {
           secret: process.env.AT_SECRET,

@@ -33,7 +33,7 @@ export class MoviesService {
     return this.movieRepository.save(movie);
   }
 
-  async deleteRole(movieId: number) {
+  async deleteMovie(movieId: number) {
     try {
       await this.movieRepository.softDelete({ id: movieId });
     } catch {

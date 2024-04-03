@@ -5,14 +5,10 @@ import { NewUserInputDto, UpdateUserInputDto } from './dto';
 import { UnprocessableEntityException, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../common/guards';
 import { GetUserAttr } from '../common/decorators';
-import { RolesService } from '../roles/roles.service';
 
 @Resolver()
 export class UsersResolver {
-  constructor(
-    private userService: UsersService,
-    private roleService: RolesService,
-  ) {}
+  constructor(private userService: UsersService) {}
 
   @Mutation((returns) => User)
   createUser(
@@ -39,9 +35,6 @@ export class UsersResolver {
       throw new UnprocessableEntityException(
         'Password and confirm password must match',
       );
-    }
-    if (!this.roleService.isValidRole(updateUserInputDto.roleName)) {
-      throw new UnprocessableEntityException('Invalid role name');
     }
     return this.userService.updateUser({
       email: updateUserInputDto.email,

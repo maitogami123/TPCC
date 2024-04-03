@@ -1,17 +1,16 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from '../../common/entity/base.entity';
-import { Order } from '../../order/entity/order.entity';
-import { Role } from '../../roles/entity/role.entity';
+import { Role } from 'src/common/enums';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { BaseEntity } from '../../common/entity/base.entity';
+import { Order } from '../../order/entity/order.entity';
 
 @Entity({ name: 'Users' })
 @ObjectType()
@@ -63,10 +62,10 @@ export class User implements BaseEntity {
   @Field()
   hashed_rt?: string;
 
-  @Field({ nullable: true, defaultValue: 'USER' })
-  @ManyToOne((type) => Role)
-  role: Role;
+  @Field({ nullable: false, defaultValue: Role.USER })
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  role: string;
 
-  @OneToMany((type) => Order, (order) => order.users)
+  @OneToMany(() => Order, (order) => order.users)
   orders: Order[];
 }

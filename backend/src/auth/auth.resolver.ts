@@ -6,6 +6,7 @@ import { UseGuards } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { GetUserAttr } from '../common/decorators';
 import { AuthGuard, RoleGuard } from '../common/guards';
+import { Role } from 'src/common/enums';
 
 @Resolver()
 export class AuthResolver {
@@ -14,7 +15,7 @@ export class AuthResolver {
     private usersService: UsersService,
   ) {}
 
-  @Mutation((returns) => LoginResponse)
+  @Mutation(() => LoginResponse)
   async signInLocal(@Args('SignInAuthDto') singInAuthDto: SignInAuthDto) {
     return this.authService.signIn(
       singInAuthDto.username,
@@ -23,7 +24,7 @@ export class AuthResolver {
   }
 
   @UseGuards(AuthGuard(true))
-  @Mutation((returns) => LoginResponse)
+  @Mutation(() => LoginResponse)
   async refreshSession(
     @GetUserAttr('sub') username: string,
     @GetUserAttr('refreshToken') refreshToken: string,
@@ -32,7 +33,7 @@ export class AuthResolver {
   }
 
   // [x]: return a valid data
-  @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
+  @UseGuards(AuthGuard(), RoleGuard(Role.ADMIN))
   @Query(() => User)
   getUserProfile(@GetUserAttr('sub') username: string): Promise<User> {
     return this.usersService.getUserByUsername(username);

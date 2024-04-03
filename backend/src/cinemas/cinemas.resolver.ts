@@ -4,6 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard, RoleGuard } from '../common/guards';
 import { Cinema } from './entity/cinema.entity';
 import { NewCinemaDto } from './dto';
+import { Role } from 'src/common/enums';
 
 @Resolver()
 export class CinemasResolver {
@@ -21,7 +22,7 @@ export class CinemasResolver {
     return this.cinemaService.getCinemaByCodeName(codeName);
   }
 
-  @UseGuards(AuthGuard(), RoleGuard('ADMIN'))
+  @UseGuards(AuthGuard(), RoleGuard(Role.ADMIN))
   @Mutation(() => Cinema)
   createCinema(@Args('cinemaInput') cinemaInput: NewCinemaDto) {
     return this.cinemaService.createCinema(cinemaInput);

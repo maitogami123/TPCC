@@ -3,4 +3,5 @@ export interface NewUserInput {
   password: string;
   email: string;
   phoneNumber: string;
+  role?: string;
 }

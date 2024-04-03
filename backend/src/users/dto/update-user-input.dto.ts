@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsAlpha, IsEmail, Length, ValidateIf } from 'class-validator';
+import { IsAlpha, IsEmail, IsEnum, Length, ValidateIf } from 'class-validator';
 import { Match } from '../../common/decorators';
+import { Role } from 'src/common/enums';
 
 @InputType()
 export class UpdateUserInputDto {
@@ -24,5 +25,6 @@ export class UpdateUserInputDto {
 
   @Field({ nullable: true })
   @IsAlpha()
+  @IsEnum(Role)
   roleName: string;
 }

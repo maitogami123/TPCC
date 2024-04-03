@@ -8,14 +8,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NewUserInput, UserUpdateObject } from './type';
 import { UpdateUserInput } from './type';
-import { Role } from '../roles/entity/role.entity';
 import { hashData } from '../common/utils';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Role) private roleRepository: Repository<Role>,
   ) {}
 
   async getUserByUsername(_username: string): Promise<User> {
@@ -24,7 +22,6 @@ export class UsersService {
     }
     try {
       const user = await this.userRepository.findOneOrFail({
-        relations: ['role'],
         where: {
           username: _username,
         },
@@ -42,6 +39,7 @@ export class UsersService {
     user.username = newUserInput.username;
     user.phone_number = newUserInput.phoneNumber;
     user.hashed_password = hashedPassword;
+    newUserInput.role && (user.role = newUserInput.role);
     return this.userRepository.save(user);
   }
 
@@ -78,22 +76,13 @@ export class UsersService {
             );
             break;
           case 'roleName':
-            try {
-              const role = await this.roleRepository.findOneByOrFail({
-                name: updateUserData.roleName,
-              });
-              userUpdateObject.role = role;
-            } catch {
-              throw new NotFoundException(
-                `Role ${updateUserData[propertyKey]} not found!`,
-              );
-            }
+            userUpdateObject.role = updateUserData[propertyKey];
             break;
           case 'email':
-            userUpdateObject.email = updateUserData.email;
+            userUpdateObject.email = updateUserData[propertyKey];
             break;
           case 'phoneNumber':
-            userUpdateObject.phone_number = updateUserData.phoneNumber;
+            userUpdateObject.phone_number = updateUserData[propertyKey];
             break;
         }
     }

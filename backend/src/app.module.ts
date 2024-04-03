@@ -7,7 +7,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { join } from 'path';
-import { RolesModule } from './roles/roles.module';
 import { SeatsModule } from './seats/seats.module';
 import { MoviesModule } from './movies/movies.module';
 import { TheatersModule } from './theaters/theaters.module';
@@ -42,7 +41,6 @@ import { MulterModule } from '@nestjs/platform-express';
       synchronize: true,
     }),
     UsersModule,
-    RolesModule,
     SeatsModule,
     MoviesModule,
     TheatersModule,

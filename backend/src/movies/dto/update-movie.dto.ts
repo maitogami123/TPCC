@@ -7,15 +7,12 @@ export class UpdateMovieDto {
   @IsNotEmpty()
   id: number;
 
-  @Field()
-  @IsNotEmpty()
+  @Field({ nullable: true })
   title: string;
 
-  @Field()
-  @IsNotEmpty()
+  @Field({ nullable: true })
   director: string;
 
-  @Field()
-  @IsNotEmpty()
+  @Field({ nullable: true })
   duration: number;
 }
