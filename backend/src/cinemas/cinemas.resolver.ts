@@ -3,7 +3,7 @@ import { CinemasService } from './cinemas.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard, RoleGuard } from '../common/guards';
 import { Cinema } from './entity/cinema.entity';
-import { NewCinemaDto } from './dto';
+import { NewCinemaDto, UpdateCinemaDto } from './dto';
 import { Role } from 'src/common/enums';
 
 @Resolver()
@@ -28,6 +28,17 @@ export class CinemasResolver {
     return this.cinemaService.createCinema(cinemaInput);
   }
 
-  // [ ]: update cinema
-  // [ ]: delete cinema
+  // [x]: update cinema
+  @UseGuards(AuthGuard(), RoleGuard(Role.ADMIN))
+  @Mutation(() => Cinema)
+  updateCinema(@Args('cinemaInput') cinemaInput: UpdateCinemaDto) {
+    return this.cinemaService.updateCinema(cinemaInput);
+  }
+
+  // [x]: delete cinema
+  @UseGuards(AuthGuard(), RoleGuard(Role.ADMIN))
+  @Mutation(() => Cinema)
+  deleteCinema(@Args('id') id: number) {
+    return this.cinemaService.deleteCinema(id);
+  }
 }

@@ -27,7 +27,7 @@ export const RoleGuard = (roleName: string): Type<CanActivate> => {
         const payload = await this.jwtService.verifyAsync(token, {
           secret: process.env.AT_SECRET,
         });
-        if (payload.roleName === roleName) {
+        if (payload.role === roleName) {
           return true;
         }
       } catch {

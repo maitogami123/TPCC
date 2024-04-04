@@ -88,6 +88,8 @@ type LoginResponse {
 }
 
 type Query {
+  getMovieById(id: Float!): Movie!
+  getAllMovies: [Movie!]!
   getTheaterById(id: Float!): Theater!
   getShowTimeById(showtimeId: Float!): ShowTime!
   getUserProfile: User!
@@ -100,6 +102,7 @@ type Mutation {
   updateUser(UpdateUserInput: UpdateUserInputDto!): User!
   createMovie(movieInput: NewMovieDto!): Movie!
   updateMovie(movieInput: UpdateMovieDto!): Movie!
+  deleteMovie(id: Float!): Boolean!
   createTheater(newTheaterData: NewTheaterDto!): Theater!
   createShowTime(newShowtimeData: NewShowTimeDTO!): ShowTime!
   createSnack(newSnackData: NewSnackDto!): Snack!
@@ -107,6 +110,8 @@ type Mutation {
   refreshSession: LoginResponse!
   logout: Boolean!
   createCinema(cinemaInput: NewCinemaDto!): Cinema!
+  updateCinema(cinemaInput: UpdateCinemaDto!): Cinema!
+  deleteCinema(id: Float!): Cinema!
 }
 
 input NewUserInputDto {
@@ -166,6 +171,13 @@ input SignInAuthDto {
 
 input NewCinemaDto {
   codeName: String!
+  name: String!
+  address: String!
+}
+
+input UpdateCinemaDto {
+  id: Float!
+  code_name: String!
   name: String!
   address: String!
 }

@@ -43,7 +43,7 @@ export class ShowTime implements BaseEntity {
   deleted_at: Date;
 
   // When the movie start
-  @Column()
+  @Column({ type: 'timestamptz' })
   @Field()
   show_date: Date;
 

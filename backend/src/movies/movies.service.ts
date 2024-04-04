@@ -11,7 +11,15 @@ export class MoviesService {
     @InjectRepository(Movie) private movieRepository: Repository<Movie>,
   ) {}
 
-  async createNewMovie(newMovieData: NewMovieDto): Promise<Movie> {
+  getAllMovies() {
+    return this.movieRepository.find();
+  }
+
+  getMovie(movieId: number): Promise<Movie> {
+    return this.movieRepository.findOneByOrFail({ id: movieId });
+  }
+
+  createNewMovie(newMovieData: NewMovieDto): Promise<Movie> {
     const newMovie = new Movie();
     Object.keys(newMovieData).forEach((key) => {
       if (key in newMovieData) {
@@ -40,9 +48,5 @@ export class MoviesService {
       throw new ConflictException();
     }
     return true;
-  }
-
-  async getMovie(movieId: number): Promise<Movie> {
-    return this.movieRepository.findOneByOrFail({ id: movieId });
   }
 }
